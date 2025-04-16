@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "310048573767",
+    "project_id": "eatsafeai",
+    "storage_bucket": "eatsafeai.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310048573767:android:f08c93426f7a3a1680e462",
+        "android_client_info": {
+          "package_name": "com.menderle.eatsafeai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "310048573767-egduokqgbc3mtfpvplcj4ccabgq1fpj7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.menderle.eatsafeai",
+            "certificate_hash": "51830202da28c3cc78f78b6bec2dae6ed61ab938"
+          }
+        },
+        {
+          "client_id": "310048573767-t1qhckohv2fa652ga0pln58ugkjb31t7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.menderle.eatsafeai",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "310048573767-q3eph39o2c9jbs7ch3lp2mpue6dgmcni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0GikdK98A7tSrTRPc2uR4bXcbj70_kME"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "310048573767-eo6a7k3pfp24sg9jt66n7u2kpb89opun.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "310048573767-8v7bkff2goajh89u6qhpnkh4gmc3i0ad.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.eatsafeai"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
