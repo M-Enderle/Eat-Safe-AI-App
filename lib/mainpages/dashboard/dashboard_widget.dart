@@ -2,6 +2,7 @@ import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dashboard_model.dart';
 export 'dashboard_model.dart';
 
@@ -43,7 +44,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
       child: Scaffold(
         key: scaffoldKey,
         resizeToAvoidBottomInset: false,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
           child: Align(
@@ -55,7 +56,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
               children: [
                 Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(25.0, 40.0, 25.0, 0.0),
+                      EdgeInsetsDirectional.fromSTEB(25.0, 25.0, 25.0, 0.0),
                   child: Container(
                     width: 100.0,
                     decoration: BoxDecoration(
@@ -66,29 +67,49 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Text(
-                          'EAT_SAFE_AI',
-                          style: FlutterFlowTheme.of(context)
-                              .headlineMedium
-                              .override(
-                                fontFamily: 'Inter',
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 45.0, 0.0, 0.0),
-                          child: Text(
-                            'Recommended for you',
-                            style: FlutterFlowTheme.of(context)
-                                .titleMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                              0.0, 0.0, 0.0, 40.0),
+                          child: Container(
+                            height: 40.0,
+                            decoration: BoxDecoration(),
+                            alignment: AlignmentDirectional(-1.0, 0.0),
+                            child: Text(
+                              'EAT_SAFE_AI',
+                              style: FlutterFlowTheme.of(context)
+                                  .headlineMedium
+                                  .override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .headlineMedium
+                                          .fontStyle,
+                                    ),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .fontStyle,
+                                  ),
+                            ),
                           ),
+                        ),
+                        Text(
+                          'Recommended for you',
+                          style:
+                              FlutterFlowTheme.of(context).titleMedium.override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleMedium
+                                          .fontStyle,
+                                    ),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .fontStyle,
+                                  ),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(

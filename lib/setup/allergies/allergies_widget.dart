@@ -7,6 +7,7 @@ import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'allergies_model.dart';
 export 'allergies_model.dart';
@@ -98,9 +99,22 @@ class _AllergiesWidgetState extends State<AllergiesWidget> {
                   child: Text(
                     'FOOD \nALLERGIES',
                     style: FlutterFlowTheme.of(context).headlineLarge.override(
-                          fontFamily: 'Inter',
+                          font: GoogleFonts.inter(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .headlineLarge
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .headlineLarge
+                                .fontStyle,
+                          ),
                           fontSize: 42.0,
                           letterSpacing: 0.0,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineLarge
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineLarge
+                              .fontStyle,
                         ),
                   ),
                 ),
@@ -113,8 +127,19 @@ class _AllergiesWidgetState extends State<AllergiesWidget> {
                   child: Text(
                     '... whereas a food allergy involves an immune system reaction that can trigger severe symptoms like hives or anaphylaxis.',
                     style: FlutterFlowTheme.of(context).bodyLarge.override(
-                          fontFamily: 'Inter',
+                          font: GoogleFonts.inter(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .bodyLarge
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyLarge
+                                .fontStyle,
+                          ),
                           letterSpacing: 0.0,
+                          fontWeight:
+                              FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                           lineHeight: 1.4,
                         ),
                   ),
@@ -174,7 +199,16 @@ class _AllergiesWidgetState extends State<AllergiesWidget> {
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        fontFamily: 'Inter',
+                                        font: GoogleFonts.inter(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
                                         color: _model.allergies
                                                 .contains(testItem.name)
                                             ? FlutterFlowTheme.of(context)
@@ -182,6 +216,12 @@ class _AllergiesWidgetState extends State<AllergiesWidget> {
                                             : FlutterFlowTheme.of(context)
                                                 .primaryText,
                                         letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
                                       ),
                                   elevation: 0.0,
                                   borderRadius: BorderRadius.circular(8.0),
@@ -212,17 +252,43 @@ class _AllergiesWidgetState extends State<AllergiesWidget> {
                           isDense: true,
                           labelStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
                                   ),
                           hintText: 'Anything else?',
                           hintStyle: FlutterFlowTheme.of(context)
                               .labelMedium
                               .override(
-                                fontFamily: 'Inter',
+                                font: GoogleFonts.inter(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontStyle,
+                                ),
                                 color:
                                     FlutterFlowTheme.of(context).secondaryText,
                                 letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .fontStyle,
                               ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -256,8 +322,21 @@ class _AllergiesWidgetState extends State<AllergiesWidget> {
                           fillColor: FlutterFlowTheme.of(context).alternate,
                         ),
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
-                              fontFamily: 'Inter',
+                              font: GoogleFonts.inter(
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .fontStyle,
+                              ),
                               letterSpacing: 0.0,
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .bodyLarge
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyLarge
+                                  .fontStyle,
                             ),
                         maxLines: 10,
                         minLines: 5,
@@ -302,9 +381,22 @@ class _AllergiesWidgetState extends State<AllergiesWidget> {
                           textStyle: FlutterFlowTheme.of(context)
                               .titleSmall
                               .override(
-                                fontFamily: 'Inter',
+                                font: GoogleFonts.inter(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
+                                ),
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontStyle,
                               ),
                           elevation: 0.0,
                           borderRadius: BorderRadius.circular(8.0),
@@ -343,9 +435,22 @@ class _AllergiesWidgetState extends State<AllergiesWidget> {
                             textStyle: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
                                   color: Colors.white,
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
                                 ),
                             elevation: 0.0,
                             borderRadius: BorderRadius.circular(8.0),

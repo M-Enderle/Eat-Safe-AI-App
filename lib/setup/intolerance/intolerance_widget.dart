@@ -7,6 +7,7 @@ import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'intolerance_model.dart';
 export 'intolerance_model.dart';
@@ -101,9 +102,22 @@ class _IntoleranceWidgetState extends State<IntoleranceWidget> {
                   child: Text(
                     'FOOD \nINTOLERANCES',
                     style: FlutterFlowTheme.of(context).headlineLarge.override(
-                          fontFamily: 'Inter',
+                          font: GoogleFonts.inter(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .headlineLarge
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .headlineLarge
+                                .fontStyle,
+                          ),
                           fontSize: 42.0,
                           letterSpacing: 0.0,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineLarge
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineLarge
+                              .fontStyle,
                         ),
                   ),
                 ),
@@ -116,9 +130,22 @@ class _IntoleranceWidgetState extends State<IntoleranceWidget> {
                     '& ALLERGIES',
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).headlineSmall.override(
-                          fontFamily: 'Inter',
+                          font: GoogleFonts.inter(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .fontStyle,
+                          ),
                           color: FlutterFlowTheme.of(context).secondaryText,
                           letterSpacing: 0.0,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineSmall
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineSmall
+                              .fontStyle,
                         ),
                   ),
                 ),
@@ -132,8 +159,19 @@ class _IntoleranceWidgetState extends State<IntoleranceWidget> {
                     'A food intolerance is a digestive system response where the body struggles to process certain foods, often causing discomfort like bloating or diarrhea, ...',
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).bodyLarge.override(
-                          fontFamily: 'Inter',
+                          font: GoogleFonts.inter(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .bodyLarge
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyLarge
+                                .fontStyle,
+                          ),
                           letterSpacing: 0.0,
+                          fontWeight:
+                              FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyLarge.fontStyle,
                           lineHeight: 1.4,
                         ),
                   ),
@@ -194,7 +232,16 @@ class _IntoleranceWidgetState extends State<IntoleranceWidget> {
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        fontFamily: 'Inter',
+                                        font: GoogleFonts.inter(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
                                         color: _model.intolerances
                                                 .contains(testItem.name)
                                             ? FlutterFlowTheme.of(context)
@@ -202,6 +249,12 @@ class _IntoleranceWidgetState extends State<IntoleranceWidget> {
                                             : FlutterFlowTheme.of(context)
                                                 .primaryText,
                                         letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
                                       ),
                                   elevation: 0.0,
                                   borderRadius: BorderRadius.circular(8.0),
@@ -231,15 +284,41 @@ class _IntoleranceWidgetState extends State<IntoleranceWidget> {
                           isDense: true,
                           labelStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
                                   ),
                           hintText: 'Anything else?',
                           hintStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                                     color: FlutterFlowTheme.of(context).primary,
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
                                   ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -273,8 +352,21 @@ class _IntoleranceWidgetState extends State<IntoleranceWidget> {
                           fillColor: FlutterFlowTheme.of(context).alternate,
                         ),
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
-                              fontFamily: 'Inter',
+                              font: GoogleFonts.inter(
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .fontStyle,
+                              ),
                               letterSpacing: 0.0,
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .bodyLarge
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyLarge
+                                  .fontStyle,
                             ),
                         maxLines: 10,
                         minLines: 5,
@@ -313,9 +405,21 @@ class _IntoleranceWidgetState extends State<IntoleranceWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Inter',
+                          font: GoogleFonts.inter(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .fontStyle,
+                          ),
                           color: Colors.white,
                           letterSpacing: 0.0,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .titleSmall
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).titleSmall.fontStyle,
                         ),
                     elevation: 0.0,
                     borderRadius: BorderRadius.circular(8.0),

@@ -135,7 +135,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: SearchResultWidget.routeName,
           path: SearchResultWidget.routePath,
           requireAuth: true,
-          builder: (context, params) => SearchResultWidget(),
+          builder: (context, params) => SearchResultWidget(
+            resultJson: params.getParam(
+              'resultJson',
+              ParamType.JSON,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
