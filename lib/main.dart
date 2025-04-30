@@ -103,6 +103,9 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: const [Locale('en', '')],
       theme: ThemeData(
         brightness: Brightness.light,
+        scrollbarTheme: ScrollbarThemeData(
+          thickness: WidgetStateProperty.all(0.0),
+        ),
         useMaterial3: false,
       ),
       themeMode: _themeMode,

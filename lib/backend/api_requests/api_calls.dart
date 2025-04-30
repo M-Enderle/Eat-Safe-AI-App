@@ -68,6 +68,29 @@ class SearchCall {
         response,
         r'''$.overall_rating''',
       ));
+  static String? fullText(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.text''',
+      ));
+  static String? timestamp(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.timestamp''',
+      ));
+  static List? ingredientsRatings(dynamic response) => getJsonField(
+        response,
+        r'''$.ingredients_rating''',
+        true,
+      ) as List?;
+  static String? ingredientName(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.ingredients_rating[:].ingredient_name''',
+      ));
+  static double? ingredientRating(dynamic response) =>
+      castToType<double>(getJsonField(
+        response,
+        r'''$.ingredients_rating[:].rating''',
+      ));
 }
 
 class ApiPagingParams {

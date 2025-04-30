@@ -4,25 +4,99 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
 
+import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 class SearchResultStruct extends FFFirebaseStruct {
   SearchResultStruct({
-    String? json,
+    String? status,
+    String? imageBase64,
+    String? name,
+    double? overallRating,
+    String? text,
+    String? timestamp,
+    List<IngredientRatingStruct>? ingredientsRating,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
-  })  : _json = json,
+  })  : _status = status,
+        _imageBase64 = imageBase64,
+        _name = name,
+        _overallRating = overallRating,
+        _text = text,
+        _timestamp = timestamp,
+        _ingredientsRating = ingredientsRating,
         super(firestoreUtilData);
 
-  // "JSON" field.
-  String? _json;
-  String get json => _json ?? '';
-  set json(String? val) => _json = val;
+  // "status" field.
+  String? _status;
+  String get status => _status ?? 'success';
+  set status(String? val) => _status = val;
 
-  bool hasJson() => _json != null;
+  bool hasStatus() => _status != null;
+
+  // "imageBase64" field.
+  String? _imageBase64;
+  String get imageBase64 => _imageBase64 ?? '';
+  set imageBase64(String? val) => _imageBase64 = val;
+
+  bool hasImageBase64() => _imageBase64 != null;
+
+  // "name" field.
+  String? _name;
+  String get name => _name ?? '';
+  set name(String? val) => _name = val;
+
+  bool hasName() => _name != null;
+
+  // "overall_rating" field.
+  double? _overallRating;
+  double get overallRating => _overallRating ?? 0.0;
+  set overallRating(double? val) => _overallRating = val;
+
+  void incrementOverallRating(double amount) =>
+      overallRating = overallRating + amount;
+
+  bool hasOverallRating() => _overallRating != null;
+
+  // "text" field.
+  String? _text;
+  String get text => _text ?? '';
+  set text(String? val) => _text = val;
+
+  bool hasText() => _text != null;
+
+  // "timestamp" field.
+  String? _timestamp;
+  String get timestamp => _timestamp ?? '';
+  set timestamp(String? val) => _timestamp = val;
+
+  bool hasTimestamp() => _timestamp != null;
+
+  // "ingredients_rating" field.
+  List<IngredientRatingStruct>? _ingredientsRating;
+  List<IngredientRatingStruct> get ingredientsRating =>
+      _ingredientsRating ?? const [];
+  set ingredientsRating(List<IngredientRatingStruct>? val) =>
+      _ingredientsRating = val;
+
+  void updateIngredientsRating(
+      Function(List<IngredientRatingStruct>) updateFn) {
+    updateFn(_ingredientsRating ??= []);
+  }
+
+  bool hasIngredientsRating() => _ingredientsRating != null;
 
   static SearchResultStruct fromMap(Map<String, dynamic> data) =>
       SearchResultStruct(
-        json: data['JSON'] as String?,
+        status: data['status'] as String?,
+        imageBase64: data['imageBase64'] as String?,
+        name: data['name'] as String?,
+        overallRating: castToType<double>(data['overall_rating']),
+        text: data['text'] as String?,
+        timestamp: data['timestamp'] as String?,
+        ingredientsRating: getStructList(
+          data['ingredients_rating'],
+          IngredientRatingStruct.fromMap,
+        ),
       );
 
   static SearchResultStruct? maybeFromMap(dynamic data) => data is Map
@@ -30,23 +104,86 @@ class SearchResultStruct extends FFFirebaseStruct {
       : null;
 
   Map<String, dynamic> toMap() => {
-        'JSON': _json,
+        'status': _status,
+        'imageBase64': _imageBase64,
+        'name': _name,
+        'overall_rating': _overallRating,
+        'text': _text,
+        'timestamp': _timestamp,
+        'ingredients_rating':
+            _ingredientsRating?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
-        'JSON': serializeParam(
-          _json,
+        'status': serializeParam(
+          _status,
           ParamType.String,
+        ),
+        'imageBase64': serializeParam(
+          _imageBase64,
+          ParamType.String,
+        ),
+        'name': serializeParam(
+          _name,
+          ParamType.String,
+        ),
+        'overall_rating': serializeParam(
+          _overallRating,
+          ParamType.double,
+        ),
+        'text': serializeParam(
+          _text,
+          ParamType.String,
+        ),
+        'timestamp': serializeParam(
+          _timestamp,
+          ParamType.String,
+        ),
+        'ingredients_rating': serializeParam(
+          _ingredientsRating,
+          ParamType.DataStruct,
+          isList: true,
         ),
       }.withoutNulls;
 
   static SearchResultStruct fromSerializableMap(Map<String, dynamic> data) =>
       SearchResultStruct(
-        json: deserializeParam(
-          data['JSON'],
+        status: deserializeParam(
+          data['status'],
           ParamType.String,
           false,
+        ),
+        imageBase64: deserializeParam(
+          data['imageBase64'],
+          ParamType.String,
+          false,
+        ),
+        name: deserializeParam(
+          data['name'],
+          ParamType.String,
+          false,
+        ),
+        overallRating: deserializeParam(
+          data['overall_rating'],
+          ParamType.double,
+          false,
+        ),
+        text: deserializeParam(
+          data['text'],
+          ParamType.String,
+          false,
+        ),
+        timestamp: deserializeParam(
+          data['timestamp'],
+          ParamType.String,
+          false,
+        ),
+        ingredientsRating: deserializeStructParam<IngredientRatingStruct>(
+          data['ingredients_rating'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: IngredientRatingStruct.fromSerializableMap,
         ),
       );
 
@@ -55,22 +192,48 @@ class SearchResultStruct extends FFFirebaseStruct {
 
   @override
   bool operator ==(Object other) {
-    return other is SearchResultStruct && json == other.json;
+    const listEquality = ListEquality();
+    return other is SearchResultStruct &&
+        status == other.status &&
+        imageBase64 == other.imageBase64 &&
+        name == other.name &&
+        overallRating == other.overallRating &&
+        text == other.text &&
+        timestamp == other.timestamp &&
+        listEquality.equals(ingredientsRating, other.ingredientsRating);
   }
 
   @override
-  int get hashCode => const ListEquality().hash([json]);
+  int get hashCode => const ListEquality().hash([
+        status,
+        imageBase64,
+        name,
+        overallRating,
+        text,
+        timestamp,
+        ingredientsRating
+      ]);
 }
 
 SearchResultStruct createSearchResultStruct({
-  String? json,
+  String? status,
+  String? imageBase64,
+  String? name,
+  double? overallRating,
+  String? text,
+  String? timestamp,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
   bool delete = false,
 }) =>
     SearchResultStruct(
-      json: json,
+      status: status,
+      imageBase64: imageBase64,
+      name: name,
+      overallRating: overallRating,
+      text: text,
+      timestamp: timestamp,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

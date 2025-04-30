@@ -136,9 +136,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: SearchResultWidget.routePath,
           requireAuth: true,
           builder: (context, params) => SearchResultWidget(
-            resultJson: params.getParam(
-              'resultJson',
-              ParamType.JSON,
+            searchResult: params.getParam(
+              'searchResult',
+              ParamType.DataStruct,
+              isList: false,
+              structBuilder: SearchResultStruct.fromSerializableMap,
             ),
           ),
         )
@@ -327,14 +329,13 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
+              ? Container(
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/Artboard_1.png',
+                      width: MediaQuery.sizeOf(context).width * 0.3,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 )

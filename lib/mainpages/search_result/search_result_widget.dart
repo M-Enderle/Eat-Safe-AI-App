@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/components/title_with_back_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -12,10 +13,10 @@ export 'search_result_model.dart';
 class SearchResultWidget extends StatefulWidget {
   const SearchResultWidget({
     super.key,
-    required this.resultJson,
+    required this.searchResult,
   });
 
-  final dynamic resultJson;
+  final SearchResultStruct? searchResult;
 
   static String routeName = 'SearchResult';
   static String routePath = '/searchResult';
@@ -73,10 +74,8 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                           model: _model.titleWithBackModel,
                           updateCallback: () => safeSetState(() {}),
                           child: TitleWithBackWidget(
-                            pageName: functions.shorten(getJsonField(
-                              widget.resultJson,
-                              r'''$.name''',
-                            ).toString()),
+                            pageName:
+                                functions.shorten(widget.searchResult!.name),
                           ),
                         ),
                       ),
@@ -89,10 +88,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                           child: custom_widgets.MemoryImageWidget(
                             width: double.infinity,
                             height: 200.0,
-                            encodedStr: getJsonField(
-                              widget.resultJson,
-                              r'''$.imageBase64''',
-                            ).toString(),
+                            encodedStr: widget.searchResult!.imageBase64,
                           ),
                         ),
                       ),
