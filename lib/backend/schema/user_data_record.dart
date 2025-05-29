@@ -20,11 +20,6 @@ class UserDataRecord extends FirestoreRecord {
   List<String> get intolerances => _intolerances ?? const [];
   bool hasIntolerances() => _intolerances != null;
 
-  // "allergies" field.
-  List<String>? _allergies;
-  List<String> get allergies => _allergies ?? const [];
-  bool hasAllergies() => _allergies != null;
-
   // "notes" field.
   List<String>? _notes;
   List<String> get notes => _notes ?? const [];
@@ -65,11 +60,6 @@ class UserDataRecord extends FirestoreRecord {
   String get intorleranceComment => _intorleranceComment ?? '';
   bool hasIntorleranceComment() => _intorleranceComment != null;
 
-  // "allergy_comment" field.
-  String? _allergyComment;
-  String get allergyComment => _allergyComment ?? '';
-  bool hasAllergyComment() => _allergyComment != null;
-
   // "setup_complete" field.
   bool? _setupComplete;
   bool get setupComplete => _setupComplete ?? false;
@@ -77,7 +67,6 @@ class UserDataRecord extends FirestoreRecord {
 
   void _initializeFields() {
     _intolerances = getDataList(snapshotData['intolerances']);
-    _allergies = getDataList(snapshotData['allergies']);
     _notes = getDataList(snapshotData['notes']);
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -86,7 +75,6 @@ class UserDataRecord extends FirestoreRecord {
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
     _intorleranceComment = snapshotData['intorlerance_comment'] as String?;
-    _allergyComment = snapshotData['allergy_comment'] as String?;
     _setupComplete = snapshotData['setup_complete'] as bool?;
   }
 
@@ -132,7 +120,6 @@ Map<String, dynamic> createUserDataRecordData({
   DateTime? createdTime,
   String? phoneNumber,
   String? intorleranceComment,
-  String? allergyComment,
   bool? setupComplete,
 }) {
   final firestoreData = mapToFirestore(
@@ -144,7 +131,6 @@ Map<String, dynamic> createUserDataRecordData({
       'created_time': createdTime,
       'phone_number': phoneNumber,
       'intorlerance_comment': intorleranceComment,
-      'allergy_comment': allergyComment,
       'setup_complete': setupComplete,
     }.withoutNulls,
   );
@@ -159,7 +145,6 @@ class UserDataRecordDocumentEquality implements Equality<UserDataRecord> {
   bool equals(UserDataRecord? e1, UserDataRecord? e2) {
     const listEquality = ListEquality();
     return listEquality.equals(e1?.intolerances, e2?.intolerances) &&
-        listEquality.equals(e1?.allergies, e2?.allergies) &&
         listEquality.equals(e1?.notes, e2?.notes) &&
         e1?.email == e2?.email &&
         e1?.displayName == e2?.displayName &&
@@ -168,14 +153,12 @@ class UserDataRecordDocumentEquality implements Equality<UserDataRecord> {
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.intorleranceComment == e2?.intorleranceComment &&
-        e1?.allergyComment == e2?.allergyComment &&
         e1?.setupComplete == e2?.setupComplete;
   }
 
   @override
   int hash(UserDataRecord? e) => const ListEquality().hash([
         e?.intolerances,
-        e?.allergies,
         e?.notes,
         e?.email,
         e?.displayName,
@@ -184,7 +167,6 @@ class UserDataRecordDocumentEquality implements Equality<UserDataRecord> {
         e?.createdTime,
         e?.phoneNumber,
         e?.intorleranceComment,
-        e?.allergyComment,
         e?.setupComplete
       ]);
 

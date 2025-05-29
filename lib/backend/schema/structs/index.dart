@@ -1,5 +1,6 @@
 export '/backend/schema/util/schema_util.dart';
 
+export 'search_hint_struct.dart';
 export 'search_result_struct.dart';
 export 'ingredient_rating_struct.dart';
 export 'setup_button_struct.dart';

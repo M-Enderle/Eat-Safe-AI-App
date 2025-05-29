@@ -156,7 +156,7 @@ class _IntoleranceWidgetState extends State<IntoleranceWidget> {
                   padding:
                       EdgeInsetsDirectional.fromSTEB(25.0, 15.0, 35.0, 0.0),
                   child: Text(
-                    'A food intolerance is a digestive system response where the body struggles to process certain foods, often causing discomfort like bloating or diarrhea, ...',
+                    'A food intolerance is a digestive system response where the body struggles to process certain foods, often causing discomfort like bloating or diarrhea.',
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).bodyLarge.override(
                           font: GoogleFonts.inter(
@@ -385,6 +385,7 @@ class _IntoleranceWidgetState extends State<IntoleranceWidget> {
                     await currentUserReference!.update({
                       ...createUserDataRecordData(
                         intorleranceComment: _model.textController.text,
+                        setupComplete: true,
                       ),
                       ...mapToFirestore(
                         {
@@ -393,7 +394,7 @@ class _IntoleranceWidgetState extends State<IntoleranceWidget> {
                       ),
                     });
 
-                    context.pushNamed(AllergiesWidget.routeName);
+                    context.pushNamed(DashboardWidget.routeName);
                   },
                   text: 'Continue',
                   options: FFButtonOptions(

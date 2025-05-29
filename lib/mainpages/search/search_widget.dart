@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
@@ -6,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -128,9 +130,19 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                   await actions.hideKeyboard();
                                                   _model.searchApiResult =
                                                       await SearchCall.call(
-                                                    query: _model
+                                                    searchTerm: _model
                                                         .searchFieldTextController
                                                         .text,
+                                                    userProfileJson: functions.userToJson(
+                                                        (currentUserDocument
+                                                                    ?.intolerances
+                                                                    .toList() ??
+                                                                [])
+                                                            .toList(),
+                                                        valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.intorleranceComment,
+                                                            '')),
                                                   );
 
                                                   if ((_model.searchApiResult
@@ -357,14 +369,23 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                     Colors.transparent,
                                                 onTap: () async {
                                                   _model.isLoading = true;
-                                                  _model.showWarning = false;
                                                   safeSetState(() {});
                                                   await actions.hideKeyboard();
                                                   _model.searchApiResult2 =
                                                       await SearchCall.call(
-                                                    query: _model
+                                                    searchTerm: _model
                                                         .searchFieldTextController
                                                         .text,
+                                                    userProfileJson: functions.userToJson(
+                                                        (currentUserDocument
+                                                                    ?.intolerances
+                                                                    .toList() ??
+                                                                [])
+                                                            .toList(),
+                                                        valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.intorleranceComment,
+                                                            '')),
                                                   );
 
                                                   if ((_model.searchApiResult2
@@ -377,6 +398,13 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                           .searchFieldTextController
                                                           ?.clear();
                                                     });
+                                                    FFAppState().addToPastSearches(
+                                                        SearchResultStruct
+                                                            .maybeFromMap((_model
+                                                                    .searchApiResult2
+                                                                    ?.jsonBody ??
+                                                                ''))!);
+                                                    safeSetState(() {});
 
                                                     context.pushNamed(
                                                       SearchResultWidget
@@ -398,7 +426,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                     _model.isLoading = false;
                                                     _model.errorMessage =
                                                         getJsonField(
-                                                      (_model.searchApiResult2
+                                                      (_model.searchApiResult
                                                               ?.jsonBody ??
                                                           ''),
                                                       r'''$.detail''',

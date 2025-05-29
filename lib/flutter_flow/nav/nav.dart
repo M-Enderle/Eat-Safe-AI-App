@@ -87,17 +87,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               appStateNotifier.loggedIn ? IntoleranceWidget() : WelcomeWidget(),
         ),
         FFRoute(
-          name: AllergiesWidget.routeName,
-          path: AllergiesWidget.routePath,
-          requireAuth: true,
-          builder: (context, params) => AllergiesWidget(
-            hasLactose: params.getParam(
-              'hasLactose',
-              ParamType.bool,
-            ),
-          ),
-        ),
-        FFRoute(
           name: IntoleranceWidget.routeName,
           path: IntoleranceWidget.routePath,
           requireAuth: true,

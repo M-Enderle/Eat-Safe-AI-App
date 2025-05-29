@@ -132,8 +132,6 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                                   text: 'Continue with Google',
                                   icon: FaIcon(
                                     FontAwesomeIcons.google,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
                                     size: 20.0,
                                   ),
                                   options: FFButtonOptions(
@@ -143,6 +141,8 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                                         16.0, 0.0, 16.0, 0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 10.0, 0.0),
+                                    iconColor: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
                                     color:
                                         FlutterFlowTheme.of(context).secondary,
                                     textStyle: FlutterFlowTheme.of(context)

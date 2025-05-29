@@ -1,5 +1,4 @@
 // Export pages
-export '/setup/allergies/allergies_widget.dart' show AllergiesWidget;
 export '/setup/intolerance/intolerance_widget.dart' show IntoleranceWidget;
 export '/setup/welcome/welcome_widget.dart' show WelcomeWidget;
 export '/mainpages/settings/settings_widget.dart' show SettingsWidget;

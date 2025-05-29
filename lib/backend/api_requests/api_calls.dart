@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../schema/structs/index.dart';
 
 import 'package:flutter/foundation.dart';
 
@@ -31,16 +32,23 @@ class HelloworldCall {
 
 class SearchCall {
   static Future<ApiCallResponse> call({
-    String? query = '',
+    String? searchTerm = '',
+    dynamic userProfileJson,
   }) async {
+    final userProfile = _serializeJson(userProfileJson);
+    final ffApiRequestBody = '''
+{
+  "query": "${escapeStringForJson(searchTerm)}",
+  "user_profile": ${userProfile}
+}''';
     return ApiManager.instance.makeApiCall(
       callName: 'search',
       apiUrl: 'https://eat-safe-ai-fast-api.vercel.app/search',
-      callType: ApiCallType.GET,
+      callType: ApiCallType.POST,
       headers: {},
-      params: {
-        'query': query,
-      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -68,10 +76,15 @@ class SearchCall {
         response,
         r'''$.overall_rating''',
       ));
-  static String? fullText(dynamic response) => castToType<String>(getJsonField(
+  static List<SearchHintStruct>? fullText(dynamic response) => (getJsonField(
         response,
         r'''$.text''',
-      ));
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => SearchHintStruct.maybeFromMap(x))
+          .withoutNulls
+          .toList();
   static String? timestamp(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.timestamp''',
@@ -81,16 +94,28 @@ class SearchCall {
         r'''$.ingredients_rating''',
         true,
       ) as List?;
-  static String? ingredientName(dynamic response) =>
-      castToType<String>(getJsonField(
+  static bool? isIngredient(dynamic response) => castToType<bool>(getJsonField(
         response,
-        r'''$.ingredients_rating[:].ingredient_name''',
+        r'''$.is_ingredient''',
       ));
-  static double? ingredientRating(dynamic response) =>
-      castToType<double>(getJsonField(
+  static List<String>? tipKeyword(dynamic response) => (getJsonField(
         response,
-        r'''$.ingredients_rating[:].rating''',
-      ));
+        r'''$.text[:].keyword''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? tipText(dynamic response) => (getJsonField(
+        response,
+        r'''$.text[:].text''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
 }
 
 class ApiPagingParams {
@@ -138,4 +163,15 @@ String _serializeJson(dynamic jsonVar, [bool isList = false]) {
     }
     return isList ? '[]' : '{}';
   }
+}
+
+String? escapeStringForJson(String? input) {
+  if (input == null) {
+    return null;
+  }
+  return input
+      .replaceAll('\\', '\\\\')
+      .replaceAll('"', '\\"')
+      .replaceAll('\n', '\\n')
+      .replaceAll('\t', '\\t');
 }

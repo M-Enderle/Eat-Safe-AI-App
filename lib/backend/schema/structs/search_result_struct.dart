@@ -13,9 +13,10 @@ class SearchResultStruct extends FFFirebaseStruct {
     String? imageBase64,
     String? name,
     double? overallRating,
-    String? text,
+    List<SearchHintStruct>? text,
     String? timestamp,
     List<IngredientRatingStruct>? ingredientsRating,
+    bool? isIngredient,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _status = status,
         _imageBase64 = imageBase64,
@@ -24,6 +25,7 @@ class SearchResultStruct extends FFFirebaseStruct {
         _text = text,
         _timestamp = timestamp,
         _ingredientsRating = ingredientsRating,
+        _isIngredient = isIngredient,
         super(firestoreUtilData);
 
   // "status" field.
@@ -58,9 +60,13 @@ class SearchResultStruct extends FFFirebaseStruct {
   bool hasOverallRating() => _overallRating != null;
 
   // "text" field.
-  String? _text;
-  String get text => _text ?? '';
-  set text(String? val) => _text = val;
+  List<SearchHintStruct>? _text;
+  List<SearchHintStruct> get text => _text ?? const [];
+  set text(List<SearchHintStruct>? val) => _text = val;
+
+  void updateText(Function(List<SearchHintStruct>) updateFn) {
+    updateFn(_text ??= []);
+  }
 
   bool hasText() => _text != null;
 
@@ -85,18 +91,29 @@ class SearchResultStruct extends FFFirebaseStruct {
 
   bool hasIngredientsRating() => _ingredientsRating != null;
 
+  // "is_ingredient" field.
+  bool? _isIngredient;
+  bool get isIngredient => _isIngredient ?? false;
+  set isIngredient(bool? val) => _isIngredient = val;
+
+  bool hasIsIngredient() => _isIngredient != null;
+
   static SearchResultStruct fromMap(Map<String, dynamic> data) =>
       SearchResultStruct(
         status: data['status'] as String?,
         imageBase64: data['imageBase64'] as String?,
         name: data['name'] as String?,
         overallRating: castToType<double>(data['overall_rating']),
-        text: data['text'] as String?,
+        text: getStructList(
+          data['text'],
+          SearchHintStruct.fromMap,
+        ),
         timestamp: data['timestamp'] as String?,
         ingredientsRating: getStructList(
           data['ingredients_rating'],
           IngredientRatingStruct.fromMap,
         ),
+        isIngredient: data['is_ingredient'] as bool?,
       );
 
   static SearchResultStruct? maybeFromMap(dynamic data) => data is Map
@@ -108,10 +125,11 @@ class SearchResultStruct extends FFFirebaseStruct {
         'imageBase64': _imageBase64,
         'name': _name,
         'overall_rating': _overallRating,
-        'text': _text,
+        'text': _text?.map((e) => e.toMap()).toList(),
         'timestamp': _timestamp,
         'ingredients_rating':
             _ingredientsRating?.map((e) => e.toMap()).toList(),
+        'is_ingredient': _isIngredient,
       }.withoutNulls;
 
   @override
@@ -134,7 +152,8 @@ class SearchResultStruct extends FFFirebaseStruct {
         ),
         'text': serializeParam(
           _text,
-          ParamType.String,
+          ParamType.DataStruct,
+          isList: true,
         ),
         'timestamp': serializeParam(
           _timestamp,
@@ -144,6 +163,10 @@ class SearchResultStruct extends FFFirebaseStruct {
           _ingredientsRating,
           ParamType.DataStruct,
           isList: true,
+        ),
+        'is_ingredient': serializeParam(
+          _isIngredient,
+          ParamType.bool,
         ),
       }.withoutNulls;
 
@@ -169,10 +192,11 @@ class SearchResultStruct extends FFFirebaseStruct {
           ParamType.double,
           false,
         ),
-        text: deserializeParam(
+        text: deserializeStructParam<SearchHintStruct>(
           data['text'],
-          ParamType.String,
-          false,
+          ParamType.DataStruct,
+          true,
+          structBuilder: SearchHintStruct.fromSerializableMap,
         ),
         timestamp: deserializeParam(
           data['timestamp'],
@@ -184,6 +208,11 @@ class SearchResultStruct extends FFFirebaseStruct {
           ParamType.DataStruct,
           true,
           structBuilder: IngredientRatingStruct.fromSerializableMap,
+        ),
+        isIngredient: deserializeParam(
+          data['is_ingredient'],
+          ParamType.bool,
+          false,
         ),
       );
 
@@ -198,9 +227,10 @@ class SearchResultStruct extends FFFirebaseStruct {
         imageBase64 == other.imageBase64 &&
         name == other.name &&
         overallRating == other.overallRating &&
-        text == other.text &&
+        listEquality.equals(text, other.text) &&
         timestamp == other.timestamp &&
-        listEquality.equals(ingredientsRating, other.ingredientsRating);
+        listEquality.equals(ingredientsRating, other.ingredientsRating) &&
+        isIngredient == other.isIngredient;
   }
 
   @override
@@ -211,7 +241,8 @@ class SearchResultStruct extends FFFirebaseStruct {
         overallRating,
         text,
         timestamp,
-        ingredientsRating
+        ingredientsRating,
+        isIngredient
       ]);
 }
 
@@ -220,8 +251,8 @@ SearchResultStruct createSearchResultStruct({
   String? imageBase64,
   String? name,
   double? overallRating,
-  String? text,
   String? timestamp,
+  bool? isIngredient,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -232,8 +263,8 @@ SearchResultStruct createSearchResultStruct({
       imageBase64: imageBase64,
       name: name,
       overallRating: overallRating,
-      text: text,
       timestamp: timestamp,
+      isIngredient: isIngredient,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

@@ -64,31 +64,7 @@ class FFAppState extends ChangeNotifier {
     SetupButtonStruct.fromSerializableMap(
         jsonDecode('{\"name\":\"FODMAP\",\"isIntolerance\":\"true\"}')),
     SetupButtonStruct.fromSerializableMap(
-        jsonDecode('{\"name\":\"Sorbit\",\"isIntolerance\":\"true\"}')),
-    SetupButtonStruct.fromSerializableMap(
-        jsonDecode('{\"name\":\"Egg\",\"isIntolerance\":\"true\"}')),
-    SetupButtonStruct.fromSerializableMap(
-        jsonDecode('{\"name\":\"Peanuts\",\"isIntolerance\":\"false\"}')),
-    SetupButtonStruct.fromSerializableMap(
-        jsonDecode('{\"name\":\"Soy\",\"isIntolerance\":\"false\"}')),
-    SetupButtonStruct.fromSerializableMap(
-        jsonDecode('{\"name\":\"Almonds\",\"isIntolerance\":\"false\"}')),
-    SetupButtonStruct.fromSerializableMap(
-        jsonDecode('{\"name\":\"Cashews\",\"isIntolerance\":\"false\"}')),
-    SetupButtonStruct.fromSerializableMap(
-        jsonDecode('{\"name\":\"Pecans\",\"isIntolerance\":\"false\"}')),
-    SetupButtonStruct.fromSerializableMap(
-        jsonDecode('{\"name\":\"Milk\",\"isIntolerance\":\"false\"}')),
-    SetupButtonStruct.fromSerializableMap(
-        jsonDecode('{\"name\":\"Eggs\",\"isIntolerance\":\"false\"}')),
-    SetupButtonStruct.fromSerializableMap(
-        jsonDecode('{\"name\":\"Fish\",\"isIntolerance\":\"false\"}')),
-    SetupButtonStruct.fromSerializableMap(
-        jsonDecode('{\"name\":\"Shellfish\",\"isIntolerance\":\"false\"}')),
-    SetupButtonStruct.fromSerializableMap(
-        jsonDecode('{\"name\":\"Walnuts\",\"isIntolerance\":\"false\"}')),
-    SetupButtonStruct.fromSerializableMap(
-        jsonDecode('{\"name\":\"Wheat\",\"isIntolerance\":\"false\"}'))
+        jsonDecode('{\"name\":\"Sorbit\",\"isIntolerance\":\"true\"}'))
   ];
   List<SetupButtonStruct> get setupButtons => _setupButtons;
   set setupButtons(List<SetupButtonStruct> value) {

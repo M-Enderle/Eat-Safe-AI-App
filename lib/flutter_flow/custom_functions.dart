@@ -46,3 +46,14 @@ String shorten(String inpt) {
   }
   return inpt.toUpperCase();
 }
+
+dynamic userToJson(
+  List<String> intolerances,
+  String notes,
+) {
+  // Convert to json
+  return {
+    'intolerances': intolerances,
+    'notes': notes,
+  };
+}
