@@ -1,14 +1,18 @@
 import '/backend/schema/structs/index.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/components/title_with_back_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'search_result_model.dart';
 export 'search_result_model.dart';
 
+/// Add a modern vizual indicator the the intolerance score
 class SearchResultWidget extends StatefulWidget {
   const SearchResultWidget({
     super.key,
@@ -24,15 +28,40 @@ class SearchResultWidget extends StatefulWidget {
   State<SearchResultWidget> createState() => _SearchResultWidgetState();
 }
 
-class _SearchResultWidgetState extends State<SearchResultWidget> {
+class _SearchResultWidgetState extends State<SearchResultWidget>
+    with TickerProviderStateMixin {
   late SearchResultModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => SearchResultModel());
+
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(-5.0, 1.0),
+            end: Offset(1.0, 1.0),
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 380.0.ms,
+            begin: Offset(-100.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -74,63 +103,70 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                           model: _model.titleWithBackModel,
                           updateCallback: () => safeSetState(() {}),
                           child: TitleWithBackWidget(
-                            pageName: widget.searchResult!.name,
+                            pageName:
+                                functions.shorten(widget.searchResult!.name),
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 10.0, 0.0, 10.0),
-                            child: Container(
-                              width: MediaQuery.sizeOf(context).width * 0.75,
-                              height: 150.0,
-                              child: custom_widgets.MemoryImageWidget(
-                                width: MediaQuery.sizeOf(context).width * 0.75,
-                                height: 150.0,
-                                encodedStr: widget.searchResult!.imageBase64,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Builder(
-                          builder: (context) {
-                            final paragraphs =
-                                widget.searchResult?.text.toList() ?? [];
-
-                            return Column(
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
                               mainAxisSize: MainAxisSize.max,
-                              children: List.generate(paragraphs.length,
-                                  (paragraphsIndex) {
-                                final paragraphsItem =
-                                    paragraphs[paragraphsIndex];
-                                return Padding(
+                              children: [
+                                Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 20.0, 0.0, 0.0),
+                                      0.0, 30.0, 0.0, 0.0),
                                   child: Container(
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      borderRadius: BorderRadius.circular(10.0),
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.6,
+                                    height: 200.0,
+                                    child: custom_widgets.DisplayNumberWidget(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          0.6,
+                                      height: 200.0,
+                                      number:
+                                          widget.searchResult!.overallRating,
                                     ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Align(
-                                          alignment:
-                                              AlignmentDirectional(-1.0, 0.0),
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    18.0, 15.0, 18.0, 0.0),
-                                            child: Text(
-                                              paragraphsItem.keyword,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font: GoogleFonts.inter(
+                                  ),
+                                ),
+                                if (!widget.searchResult!.isIngredient)
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 20.0, 0.0, 0.0),
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFF8F8EC),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(-1.0, 0.0),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      18.0, 15.0, 18.0, 0.0),
+                                              child: Text(
+                                                'Problematic Ingredients',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                          fontSize: 18.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontStyle:
@@ -139,64 +175,252 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
-                                                        fontSize: 18.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Align(
-                                          alignment:
-                                              AlignmentDirectional(-1.0, 0.0),
-                                          child: Padding(
+                                          Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    18.0, 5.0, 18.0, 15.0),
-                                            child: Text(
-                                              paragraphsItem.text,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font: GoogleFonts.inter(
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        color:
-                                                            Color(0xFF364139),
-                                                        fontSize: 13.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                        lineHeight: 1.6,
+                                                    15.0, 15.0, 15.0, 15.0),
+                                            child: Builder(
+                                              builder: (context) {
+                                                final ratings = widget
+                                                        .searchResult
+                                                        ?.ingredientsRating
+                                                        .sortedList(
+                                                            keyOf: (e) =>
+                                                                e.rating,
+                                                            desc: false)
+                                                        .toList() ??
+                                                    [];
+
+                                                return Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: List.generate(
+                                                      ratings.length,
+                                                      (ratingsIndex) {
+                                                    final ratingsItem =
+                                                        ratings[ratingsIndex];
+                                                    return Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  4.0,
+                                                                  0.0,
+                                                                  4.0),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Container(
+                                                            width: (functions.calcBarWidth(
+                                                                        ratingsItem
+                                                                            .rating)!) <
+                                                                    50
+                                                                ? 100.0
+                                                                : functions.calcBarWidth(
+                                                                    ratingsItem
+                                                                        .rating),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: functions
+                                                                  .getColor(
+                                                                      ratingsItem
+                                                                          .rating),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                            ),
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    -1.0, 0.0),
+                                                            child: Align(
+                                                              alignment:
+                                                                  AlignmentDirectional(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Padding(
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        10.0,
+                                                                        2.0,
+                                                                        10.0,
+                                                                        2.0),
+                                                                child: Text(
+                                                                  ratingsItem
+                                                                      .ingredientName,
+                                                                  maxLines: 1,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        font: GoogleFonts
+                                                                            .inter(
+                                                                          fontWeight: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontWeight,
+                                                                          fontStyle: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontStyle,
+                                                                        ),
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryBackground,
+                                                                        fontSize:
+                                                                            13.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontWeight,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
+                                                                      ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ).animateOnPageLoad(
+                                                              animationsMap[
+                                                                  'containerOnPageLoadAnimation']!),
+                                                        ],
                                                       ),
+                                                    );
+                                                  }),
+                                                );
+                                              },
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                );
-                              }),
-                            );
-                          },
+                                Builder(
+                                  builder: (context) {
+                                    final paragraphs =
+                                        widget.searchResult?.text.toList() ??
+                                            [];
+
+                                    return Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: List.generate(paragraphs.length,
+                                          (paragraphsIndex) {
+                                        final paragraphsItem =
+                                            paragraphs[paragraphsIndex];
+                                        return Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 20.0, 0.0, 0.0),
+                                          child: Container(
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          -1.0, 0.0),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                18.0,
+                                                                15.0,
+                                                                18.0,
+                                                                0.0),
+                                                    child: Text(
+                                                      paragraphsItem.keyword,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            font: GoogleFonts
+                                                                .inter(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                            ),
+                                                            fontSize: 18.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          -1.0, 0.0),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(18.0, 5.0,
+                                                                18.0, 15.0),
+                                                    child: Text(
+                                                      paragraphsItem.text,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            font: GoogleFonts
+                                                                .inter(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                            ),
+                                                            color: Color(
+                                                                0xFF364139),
+                                                            fontSize: 13.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                            lineHeight: 1.6,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      }),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ],
                     ),

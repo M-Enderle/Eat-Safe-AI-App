@@ -78,24 +78,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? IntoleranceWidget() : WelcomeWidget(),
+          appStateNotifier.loggedIn ? DashboardWidget() : WelcomeWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? IntoleranceWidget() : WelcomeWidget(),
+              appStateNotifier.loggedIn ? DashboardWidget() : WelcomeWidget(),
         ),
         FFRoute(
           name: IntoleranceWidget.routeName,
           path: IntoleranceWidget.routePath,
           requireAuth: true,
-          builder: (context, params) => IntoleranceWidget(
-            hasLactose: params.getParam(
-              'hasLactose',
-              ParamType.bool,
-            ),
-          ),
+          builder: (context, params) => IntoleranceWidget(),
         ),
         FFRoute(
           name: WelcomeWidget.routeName,

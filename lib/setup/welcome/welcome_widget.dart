@@ -126,7 +126,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                                     }
 
                                     context.goNamedAuth(
-                                        IntoleranceWidget.routeName,
+                                        DashboardWidget.routeName,
                                         context.mounted);
                                   },
                                   text: 'Continue with Google',

@@ -118,6 +118,38 @@ class SearchCall {
           .toList();
 }
 
+class TipCall {
+  static Future<ApiCallResponse> call({
+    dynamic userProfileJson,
+  }) async {
+    final userProfile = _serializeJson(userProfileJson);
+    final ffApiRequestBody = '''
+{
+  "user_profile": ${userProfile}
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'tip',
+      apiUrl: 'https://eat-safe-ai-fast-api.vercel.app/tip',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? text(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.tip''',
+      ));
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

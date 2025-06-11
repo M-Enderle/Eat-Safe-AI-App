@@ -1,6 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
+import '/backend/backend.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/components/title_with_back_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -9,7 +9,6 @@ import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -115,15 +114,6 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                     .searchFieldTextController,
                                                 focusNode:
                                                     _model.searchFieldFocusNode,
-                                                onChanged: (_) =>
-                                                    EasyDebounce.debounce(
-                                                  '_model.searchFieldTextController',
-                                                  Duration(milliseconds: 2000),
-                                                  () async {
-                                                    _model.showWarning = false;
-                                                    safeSetState(() {});
-                                                  },
-                                                ),
                                                 onFieldSubmitted: (_) async {
                                                   _model.isLoading = true;
                                                   safeSetState(() {});
@@ -162,6 +152,16 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                                     ?.jsonBody ??
                                                                 ''))!);
                                                     safeSetState(() {});
+
+                                                    await currentUserReference!
+                                                        .update(
+                                                            createUserDataRecordData(
+                                                      requestsMade: valueOrDefault(
+                                                              currentUserDocument
+                                                                  ?.requestsMade,
+                                                              0) +
+                                                          1,
+                                                    ));
 
                                                     context.pushNamed(
                                                       SearchResultWidget
@@ -405,6 +405,16 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                                     ?.jsonBody ??
                                                                 ''))!);
                                                     safeSetState(() {});
+
+                                                    await currentUserReference!
+                                                        .update(
+                                                            createUserDataRecordData(
+                                                      requestsMade: valueOrDefault(
+                                                              currentUserDocument
+                                                                  ?.requestsMade,
+                                                              0) +
+                                                          1,
+                                                    ));
 
                                                     context.pushNamed(
                                                       SearchResultWidget

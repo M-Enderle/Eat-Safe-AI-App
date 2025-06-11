@@ -13,13 +13,7 @@ import 'intolerance_model.dart';
 export 'intolerance_model.dart';
 
 class IntoleranceWidget extends StatefulWidget {
-  const IntoleranceWidget({
-    super.key,
-    bool? hasLactose,
-  }) : this.hasLactose = hasLactose ?? true;
-
-  /// If the user has a lactose intolerance
-  final bool hasLactose;
+  const IntoleranceWidget({super.key});
 
   static String routeName = 'intolerance';
   static String routePath = '/intolerance';

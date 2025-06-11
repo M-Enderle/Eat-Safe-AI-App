@@ -1,7 +1,13 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dashboard_model.dart';
 export 'dashboard_model.dart';
@@ -16,15 +22,50 @@ class DashboardWidget extends StatefulWidget {
   State<DashboardWidget> createState() => _DashboardWidgetState();
 }
 
-class _DashboardWidgetState extends State<DashboardWidget> {
+class _DashboardWidgetState extends State<DashboardWidget>
+    with TickerProviderStateMixin {
   late DashboardModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => DashboardModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.apiResultb85 = await TipCall.call(
+        userProfileJson: functions.userToJson(
+            (currentUserDocument?.intolerances.toList() ?? []).toList(),
+            valueOrDefault(currentUserDocument?.intorleranceComment, '')),
+      );
+
+      if ((_model.apiResultb85?.succeeded ?? true)) {
+        _model.tip = getJsonField(
+          (_model.apiResultb85?.jsonBody ?? ''),
+          r'''$.tip''',
+        ).toString().toString();
+        safeSetState(() {});
+      }
+    });
+
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeInOutQuint,
+            delay: 0.0.ms,
+            duration: 530.0.ms,
+            begin: Offset(-1.0, -1.0),
+            end: Offset(1.0, 1.0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -239,35 +280,72 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                         ],
                                       ),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 30.0, 0.0, 0.0),
-                                      child: Container(
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                        ),
-                                        child: Stack(
-                                          children: [
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  -1.0, -1.0),
-                                              child: Padding(
+                                    if (_model.tip != null && _model.tip != '')
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 30.0, 0.0, 0.0),
+                                        child: Container(
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          child: Stack(
+                                            children: [
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    -1.0, -1.0),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          18.0, 14.0, 0.0, 0.0),
+                                                  child: Text(
+                                                    'Did you know',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                          color:
+                                                              Color(0xFF364139),
+                                                          fontSize: 18.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                          lineHeight: 0.0,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        18.0, 14.0, 0.0, 0.0),
+                                                        18.0, 14.0, 18.0, 16.8),
                                                 child: Text(
-                                                  'Did you know',
+                                                  '                                  ${_model.tip}',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
                                                       .override(
                                                         font: GoogleFonts.inter(
                                                           fontWeight:
-                                                              FontWeight.w600,
+                                                              FontWeight.normal,
                                                           fontStyle:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -276,31 +354,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                         ),
                                                         color:
                                                             Color(0xFF364139),
-                                                        fontSize: 18.0,
+                                                        fontSize: 13.0,
                                                         letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                        lineHeight: 0.0,
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      18.0, 14.0, 18.0, 16.8),
-                                              child: Text(
-                                                '                                  that while many associate fructose intolerance primarily with digestive issues, some individuals can also experience seemingly unrelated symptoms like fatigue, headaches, or even difficulty concentrating due to the body\'s struggle to process fructose properly?',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      font: GoogleFonts.inter(
                                                         fontWeight:
                                                             FontWeight.normal,
                                                         fontStyle:
@@ -308,25 +363,15 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontStyle,
+                                                        lineHeight: 1.6,
                                                       ),
-                                                      color: Color(0xFF364139),
-                                                      fontSize: 13.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontStyle,
-                                                      lineHeight: 1.6,
-                                                    ),
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
+                                            ],
+                                          ),
+                                        ).animateOnPageLoad(animationsMap[
+                                            'containerOnPageLoadAnimation']!),
                                       ),
-                                    ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 30.0, 0.0, 0.0),
