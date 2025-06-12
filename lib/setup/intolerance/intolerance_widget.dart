@@ -119,38 +119,10 @@ class _IntoleranceWidgetState extends State<IntoleranceWidget> {
               Align(
                 alignment: AlignmentDirectional(-1.0, 0.0),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(25.0, 0.0, 0.0, 0.0),
-                  child: Text(
-                    '& ALLERGIES',
-                    textAlign: TextAlign.start,
-                    style: FlutterFlowTheme.of(context).headlineSmall.override(
-                          font: GoogleFonts.inter(
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .headlineSmall
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .headlineSmall
-                                .fontStyle,
-                          ),
-                          color: FlutterFlowTheme.of(context).secondaryText,
-                          letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .headlineSmall
-                              .fontWeight,
-                          fontStyle: FlutterFlowTheme.of(context)
-                              .headlineSmall
-                              .fontStyle,
-                        ),
-                  ),
-                ),
-              ),
-              Align(
-                alignment: AlignmentDirectional(-1.0, 0.0),
-                child: Padding(
                   padding:
                       EdgeInsetsDirectional.fromSTEB(25.0, 15.0, 35.0, 0.0),
                   child: Text(
-                    'A food intolerance is a digestive system response where the body struggles to process certain foods, often causing discomfort like bloating or diarrhea.',
+                    'A food intolerance is a digestive response that happens when your body has trouble breaking down certain foods. It can lead to symptoms like bloating, stomach pain, or diarrhea. If you’re noticing these reactions, it’s always a good idea to check in with a doctor first.',
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).bodyLarge.override(
                           font: GoogleFonts.inter(
@@ -161,6 +133,7 @@ class _IntoleranceWidgetState extends State<IntoleranceWidget> {
                                 .bodyLarge
                                 .fontStyle,
                           ),
+                          fontSize: 15.0,
                           letterSpacing: 0.0,
                           fontWeight:
                               FlutterFlowTheme.of(context).bodyLarge.fontWeight,

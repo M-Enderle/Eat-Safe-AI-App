@@ -761,6 +761,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                               highlightColor:
                                                   Colors.transparent,
                                               onTap: () async {
+                                                Function() _navigate = () {};
                                                 var confirmDialogResponse =
                                                     await showDialog<bool>(
                                                           context: context,
@@ -793,17 +794,23 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                                           },
                                                         ) ??
                                                         false;
-                                                await authManager
-                                                    .deleteUser(context);
-                                                GoRouter.of(context)
-                                                    .prepareAuthEvent();
-                                                await authManager.signOut();
-                                                GoRouter.of(context)
-                                                    .clearRedirectLocation();
+                                                if (confirmDialogResponse) {
+                                                  await authManager
+                                                      .deleteUser(context);
+                                                  GoRouter.of(context)
+                                                      .prepareAuthEvent();
+                                                  await authManager.signOut();
+                                                  GoRouter.of(context)
+                                                      .clearRedirectLocation();
 
-                                                context.goNamedAuth(
-                                                    WelcomeWidget.routeName,
-                                                    context.mounted);
+                                                  _navigate = () =>
+                                                      context.goNamedAuth(
+                                                          WelcomeWidget
+                                                              .routeName,
+                                                          context.mounted);
+                                                }
+
+                                                _navigate();
                                               },
                                               child: Container(
                                                 width: double.infinity,
@@ -916,7 +923,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                     child: Text(
-                      'Made with ❤️ \nby Moritz Enderle & Hannah Durchschlag',
+                      'Made with ❤️ \nby Hannah Durchschlag & Moritz Enderle ',
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             font: GoogleFonts.inter(

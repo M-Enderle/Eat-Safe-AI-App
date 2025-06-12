@@ -189,6 +189,20 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                       r'''$.detail''',
                                                     ).toString();
                                                     safeSetState(() {});
+                                                    await Future.delayed(
+                                                        const Duration(
+                                                            milliseconds:
+                                                                2000));
+                                                    _model.showWarning = false;
+                                                    _model.isLoading = false;
+                                                    _model.errorMessage =
+                                                        getJsonField(
+                                                      (_model.searchApiResult
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.detail''',
+                                                    ).toString();
+                                                    safeSetState(() {});
                                                   }
 
                                                   safeSetState(() {});
