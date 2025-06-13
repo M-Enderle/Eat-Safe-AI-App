@@ -42,9 +42,52 @@ dynamic stringToJson(String? string) {
 String shorten(String inpt) {
   // if the string is longer than 20 chars, cut off the rest strip it  and add "..."
   if (inpt.length > 16) {
-    return (inpt.substring(0, 13) + '...').toUpperCase();
+    return ('${inpt.substring(0, 13)}...').toUpperCase();
   }
   return inpt.toUpperCase();
+}
+
+dynamic userToJson(
+  List<String> intolerances,
+  String notes,
+) {
+  // Convert to json
+  return {
+    'intolerances': intolerances,
+    'notes': notes,
+  };
+}
+
+double? calcBarWidth(double value) {
+  // Clamp value between 0.0 and 100.0
+  final clampedValue = value.clamp(0.0, 100.0);
+
+  // Linearly interpolate from 100 to 300
+  return 100 + (((100 - clampedValue) / 100.0) * (250 - 100));
+}
+
+Color getColor(double value) {
+  final clampedValue = value.clamp(0.0, 100.0);
+  final normalizedValue = clampedValue / 100.0;
+
+  // Define pastel color stops (in reverse order)
+  const Color pastelRed = Color(0xFFFF6961); // 0%
+  const Color pastelOrange = Color(0xFFFFB54C); // 25%
+  const Color crayolaYellow = Color(0xFFF8D66D); // 50%
+  const Color iguanaGreen = Color(0xFF7ABD7E); // 75%
+  const Color pistachio = Color(0xFF8CD47E); // 100%
+
+  if (normalizedValue <= 0.25) {
+    return Color.lerp(pastelRed, pastelOrange, normalizedValue / 0.25)!;
+  } else if (normalizedValue <= 0.5) {
+    return Color.lerp(
+        pastelOrange, crayolaYellow, (normalizedValue - 0.25) / 0.25)!;
+  } else if (normalizedValue <= 0.75) {
+    return Color.lerp(
+        crayolaYellow, iguanaGreen, (normalizedValue - 0.5) / 0.25)!;
+  } else {
+    return Color.lerp(iguanaGreen, pistachio, (normalizedValue - 0.75) / 0.25)!;
+  }
 }
 
 dynamic userToJson(

@@ -9,6 +9,9 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+// Imports other custom actions
+// Imports custom functions
+
 // Set your action name, define your arguments and return parameter,
 // and then add the boilerplate code using the green button on the right!
 Future hideKeyboard() async {
