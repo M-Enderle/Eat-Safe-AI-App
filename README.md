@@ -449,8 +449,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ## 👥 Authors & Contributors
 
 ### Core Team
-- **Hannah Durchschlag** - *Lead Developer & UI/UX Designer*
-- **Moritz Enderle** - *Backend Developer & AI Integration Specialist*
+- **Hannah Durchschlag**
+- **Moritz Enderle**
 
 ### Contributing
 We thank all contributors who have helped make EatSafeAI better. See our [Contributors](https://github.com/yourusername/EatSafeAI/contributors) page for a full list.
