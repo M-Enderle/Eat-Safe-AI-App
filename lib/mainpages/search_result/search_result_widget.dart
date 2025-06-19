@@ -215,14 +215,19 @@ class _SearchResultWidgetState extends State<SearchResultWidget>
                                                             MainAxisSize.max,
                                                         children: [
                                                           Container(
-                                                            width: (functions.calcBarWidth(
-                                                                        ratingsItem
-                                                                            .rating)!) <
-                                                                    50
-                                                                ? 100.0
-                                                                : functions.calcBarWidth(
-                                                                    ratingsItem
-                                                                        .rating),
+                                                            width:
+                                                                valueOrDefault<
+                                                                    double>(
+                                                              (functions.calcBarWidth(
+                                                                          ratingsItem
+                                                                              .rating)!) <
+                                                                      50
+                                                                  ? 100.0
+                                                                  : functions.calcBarWidth(
+                                                                      ratingsItem
+                                                                          .rating),
+                                                              200.0,
+                                                            ),
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: functions
@@ -417,6 +422,33 @@ class _SearchResultWidgetState extends State<SearchResultWidget>
                                       }),
                                     );
                                   },
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 20.0, 0.0, 10.0),
+                                  child: Text(
+                                    'All information is AI generated and main contain errors.\nAlways double check if you are unsure.',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w300,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                          color: Color(0xFFB5B5B5),
+                                          fontSize: 12.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w300,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                  ),
                                 ),
                               ],
                             ),

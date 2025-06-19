@@ -28,9 +28,13 @@ class DisplayNumberWidget extends StatefulWidget {
   _DisplayNumberWidgetState createState() => _DisplayNumberWidgetState();
 }
 
-final ValueNotifier<double> _valueNotifier = ValueNotifier(0);
+class _DisplayNumberWidgetState extends State<DisplayNumberWidget>
+    with SingleTickerProviderStateMixin {
+  // Make _valueNotifier an instance member
+  late ValueNotifier<double> _valueNotifier;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
-class _DisplayNumberWidgetState extends State<DisplayNumberWidget> {
   Color getProgressColor(double value) {
     final clampedValue = value.clamp(0.0, 100.0);
     final normalizedValue = clampedValue / 100.0;
@@ -57,19 +61,47 @@ class _DisplayNumberWidgetState extends State<DisplayNumberWidget> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _valueNotifier = ValueNotifier<double>((widget.number + 5).toDouble());
+
+    // Initialize AnimationController for explicit animation
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000), // Adjust animation duration
+    );
+
+    _animation = Tween<double>(
+      begin: 0, // Start animation from 0 or a previous value
+      end: (widget.number + 5).toDouble(),
+    ).animate(_animationController)
+      ..addListener(() {
+        _valueNotifier.value = _animation.value;
+      });
+
+    _animationController.forward();
+  }
+
+  @override
   void didUpdateWidget(DisplayNumberWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.number != widget.number) {
-      // Add 5 to the number to ensure a minimum display
-      _valueNotifier.value = (widget.number + 5).toDouble();
+      // Update the animation target and restart animation
+      _animation = Tween<double>(
+        begin: _valueNotifier.value, // Start from current displayed value
+        end: (widget.number + 5).toDouble(),
+      ).animate(_animationController);
+      _animationController
+        ..reset()
+        ..forward();
     }
   }
 
   @override
-  void initState() {
-    super.initState();
-    // Add 5 to the initial number to ensure a minimum display
-    _valueNotifier.value = (widget.number + 5).toDouble();
+  void dispose() {
+    _valueNotifier.dispose();
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -80,15 +112,12 @@ class _DisplayNumberWidgetState extends State<DisplayNumberWidget> {
       child: ValueListenableBuilder<double>(
         valueListenable: _valueNotifier,
         builder: (context, value, _) {
-          // Pass the original value (without the +5 offset) to getProgressColor
           final progressColor = getProgressColor(widget.number);
 
           return DashedCircularProgressBar.aspectRatio(
             aspectRatio: 1,
             valueNotifier: _valueNotifier,
-            // Use the offset value for progress
-            progress: value,
-            // Set maxProgress to 105
+            progress: value, // Use the animated value
             maxProgress: 105,
             startAngle: 225,
             sweepAngle: 270,
@@ -96,7 +125,7 @@ class _DisplayNumberWidgetState extends State<DisplayNumberWidget> {
             backgroundColor: const Color(0xffeeeeee),
             foregroundStrokeWidth: 15,
             backgroundStrokeWidth: 15,
-            animation: true,
+            // animation: true, // Not needed when using an explicit AnimationController
             seekSize: 6,
             seekColor: const Color(0xffeeeeee),
             child: Center(
@@ -104,7 +133,6 @@ class _DisplayNumberWidgetState extends State<DisplayNumberWidget> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    // Display the original number (without the +5 offset)
                     '${widget.number.toInt()}%',
                     style: const TextStyle(
                       color: Colors.black,
